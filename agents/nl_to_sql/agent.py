@@ -106,6 +106,7 @@ In exactly one sentence, plainly summarize what this result shows. No preamble."
 
         con = duckdb.connect(self.db_path, read_only=True)
         try:
+            con.execute("PRAGMA threads=1")
             result_df = con.execute(sql).fetchdf()
         finally:
             con.close()
