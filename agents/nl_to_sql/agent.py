@@ -2,8 +2,8 @@
 the demo DuckDB database, and returns the generated SQL, the result, and a one-sentence
 narration of what the result shows.
 
-Supports two LLM providers, selected via LLM_PROVIDER env var ("anthropic" or "gemini").
-Defaults to "gemini" since it has a usable free tier for this demo.
+Supports three LLM providers, selected via LLM_PROVIDER env var ("anthropic", "gemini", or "groq").
+Defaults to "groq" - best free-tier limits (30 req/min, 1000/day) of the three for this demo.
 """
 import os
 import re
@@ -12,6 +12,7 @@ import duckdb
 
 ANTHROPIC_MODEL = "claude-sonnet-4-5"
 GEMINI_MODEL = "gemini-flash-latest"
+GROQ_MODEL = "llama-3.3-70b-versatile"
 
 SCHEMA_DESCRIPTION = """
 Tables in this DuckDB database:
@@ -36,7 +37,7 @@ class LLMClient:
     """Thin wrapper so the agent logic doesn't care which provider is behind it."""
 
     def __init__(self, provider=None, api_key=None):
-        self.provider = provider or os.environ.get("LLM_PROVIDER", "gemini")
+        self.provider = provider or os.environ.get("LLM_PROVIDER", "groq")
 
         if self.provider == "anthropic":
             import anthropic
@@ -44,6 +45,9 @@ class LLMClient:
         elif self.provider == "gemini":
             from google import genai
             self._client = genai.Client(api_key=api_key or os.environ.get("GEMINI_API_KEY"))
+        elif self.provider == "groq":
+            from groq import Groq
+            self._client = Groq(api_key=api_key or os.environ.get("GROQ_API_KEY"))
         else:
             raise ValueError(f"Unknown LLM_PROVIDER: {self.provider}")
 
@@ -55,12 +59,19 @@ class LLMClient:
                 messages=[{"role": "user", "content": prompt}],
             )
             return response.content[0].text.strip()
-        else:
+        elif self.provider == "gemini":
             response = self._client.models.generate_content(
                 model=GEMINI_MODEL,
                 contents=prompt,
             )
             return response.text.strip()
+        else:
+            response = self._client.chat.completions.create(
+                model=GROQ_MODEL,
+                max_tokens=max_tokens,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            return response.choices[0].message.content.strip()
 
 
 class NLToSQLAgent:
