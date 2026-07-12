@@ -8,6 +8,10 @@ from agent import NLToSQLAgent
 
 load_dotenv()
 
+if not os.path.exists("duckdb/ecommerce.duckdb"):
+    import generate_data
+    generate_data.main()
+
 st.set_page_config(page_title="NL-to-SQL Agent | AutoAnalyst", page_icon="\U0001F4CA")
 
 st.title("NL-to-SQL Agent")
@@ -28,7 +32,7 @@ with st.sidebar:
         if st.button(q, use_container_width=True):
             st.session_state.pending_question = q
 
-if not (os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("GEMINI_API_KEY")):
+if not (os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("GEMINI_API_KEY") or os.environ.get("GROQ_API_KEY")):
     st.warning("Set an API key in .env (see .env.example) before asking questions.")
 
 question = st.chat_input("Ask a question about this data...")

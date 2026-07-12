@@ -2,6 +2,8 @@
 
 Safe to run repeatedly - always rebuilds duckdb/ecommerce.duckdb from scratch.
 """
+import os
+
 import duckdb
 import numpy as np
 import pandas as pd
@@ -64,6 +66,8 @@ def build_orders(customers, products):
     return df.merge(customers[["customer_id", "region"]], on="customer_id", how="left")
 
 def main():
+    os.makedirs("duckdb", exist_ok=True)
+
     customers = build_customers()
     products = build_products()
     orders = build_orders(customers, products)
@@ -77,6 +81,4 @@ def main():
     print(f"Built duckdb/ecommerce.duckdb: {len(customers)} customers, {len(products)} products, {len(orders)} orders")
 
 if __name__ == "__main__":
-    import os
-    os.makedirs("duckdb", exist_ok=True)
     main()
