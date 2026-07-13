@@ -10,7 +10,7 @@ AI agents that do data analytics autonomously — plain English in, insight out.
 |---|---|---|
 | [`nl_to_sql`](agents/nl_to_sql/) | Ask a question in plain English, get the generated SQL + result + a one-sentence explanation | Working demo — [try it live](https://ftbkfugig5aod9sq2g2mhm.streamlit.app/) |
 | [`insight_narrator`](agents/insight_narrator/) | Upload a dataset, agent finds and narrates the 3 most interesting things in it - no question needed | Working demo |
-| `data_quality` | Scans a dataset for quality issues (nulls, duplicates, type mismatches) and explains why they matter | Planned |
+| [`data_quality`](agents/data_quality/) | Scans a dataset for quality issues (nulls, duplicates, type mismatches, invalid dates) and explains why they matter | Working demo |
 | `metric_definition` | Keeps metric definitions (e.g. "active user") consistent across teams | Planned |
 
 ## Try it

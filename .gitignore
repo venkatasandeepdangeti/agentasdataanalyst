@@ -5,4 +5,5 @@ __pycache__/
 .duckdb/
 **/duckdb/*.duckdb
 agents/insight_narrator/data/*.csv
+agents/data_quality/data/*.csv
 .streamlit/
