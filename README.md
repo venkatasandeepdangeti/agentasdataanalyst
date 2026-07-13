@@ -2,11 +2,13 @@
 
 AI agents that do data analytics autonomously — plain English in, insight out. Instead of dashboards people have to interpret, these agents interpret data *for* people.
 
+**🔗 Live demo (no setup required): https://ftbkfugig5aod9sq2g2mhm.streamlit.app/**
+
 ## Agents
 
 | Agent | What it does | Status |
 |---|---|---|
-| [`nl_to_sql`](agents/nl_to_sql/) | Ask a question in plain English, get the generated SQL + result + a one-sentence explanation | Working demo |
+| [`nl_to_sql`](agents/nl_to_sql/) | Ask a question in plain English, get the generated SQL + result + a one-sentence explanation | Working demo — [try it live](https://ftbkfugig5aod9sq2g2mhm.streamlit.app/) |
 | `insight_narrator` | Upload a dataset, agent finds and narrates the 3 most interesting things in it | Planned |
 | `data_quality` | Scans a dataset for quality issues (nulls, duplicates, type mismatches) and explains why they matter | Planned |
 | `metric_definition` | Keeps metric definitions (e.g. "active user") consistent across teams | Planned |

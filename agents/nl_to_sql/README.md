@@ -1,5 +1,7 @@
 # NL-to-SQL Agent
 
+**🔗 Live demo: https://ftbkfugig5aod9sq2g2mhm.streamlit.app/**
+
 Ask a question in plain English about a synthetic e-commerce dataset (customers, products, orders). The agent generates a SQL query, shows it to you before running it, executes it read-only against a local DuckDB file, and narrates the result in one sentence.
 
 ## Setup
