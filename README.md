@@ -11,7 +11,7 @@ AI agents that do data analytics autonomously — plain English in, insight out.
 | [`nl_to_sql`](agents/nl_to_sql/) | Ask a question in plain English, get the generated SQL + result + a one-sentence explanation | Working demo — [try it live](https://ftbkfugig5aod9sq2g2mhm.streamlit.app/) |
 | [`insight_narrator`](agents/insight_narrator/) | Upload a dataset, agent finds and narrates the 3 most interesting things in it - no question needed | Working demo |
 | [`data_quality`](agents/data_quality/) | Scans a dataset for quality issues (nulls, duplicates, type mismatches, invalid dates) and explains why they matter | Working demo |
-| `metric_definition` | Keeps metric definitions (e.g. "active user") consistent across teams | Planned |
+| [`metric_definition`](agents/metric_definition/) | Checks a submitted SQL metric definition against a canonical one and explains any real difference | Working demo |
 
 ## Try it
 
@@ -31,7 +31,7 @@ Ask things like:
 ## Design principles
 - **Transparency first** — every agent shows its work (generated SQL, confidence notes) rather than just handing over an answer
 - **Read-only, sandboxed demos** — no agent here ever touches real production data or credentials; everything runs against local synthetic/public datasets
-- **Deterministic where it matters** — statistical/data-quality detection uses real code, not LLM guessing; the LLM's job is generating queries and narrating results, not doing the analysis itself
+- **Deterministic where it matters** — statistical/data-quality detection uses real code, not LLM guessing; the LLM's job is generating queries and narrating results, not doing the analysis itself. `metric_definition` is the deliberate exception: comparing whether two SQL snippets mean the same thing genuinely requires language understanding, not a rule you can write in code, so the LLM does that comparison directly (see that agent's README for the reasoning)
 
-## Roadmap
-Full planning lives in a companion Obsidian vault (not in this repo). Short version: ship each agent as a standalone Streamlit demo, then embed the working demos into a personal data-analytics website.
+## Status
+All 4 originally planned agents are built and working. Next: deploy the remaining three to Streamlit Community Cloud (only `nl_to_sql` is live so far), then embed the working demos into a personal data-analytics website. Full planning lives in a companion Obsidian vault (not in this repo).
